@@ -7,7 +7,7 @@ Predictive text based on conditional fields
 
 ## Getting Started
 
-1. Apply for access to the MIMIC dataset.
+1. [Apply for access](https://mimic.physionet.org/gettingstarted/access/) to the MIMIC dataset.
 2. Download the dataset once access is approved.
 3. Save the dataset to Google Drive.
 4. Start with the EDA notebook to see what the data is like.
