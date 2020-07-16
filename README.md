@@ -16,4 +16,7 @@ Google Colab offers free GPU use with notebooks. It integrates nicely with Googl
 
 See all the notebooks for the Medley Health organization [here](https://colab.research.google.com/github/MedleyHealth/TypeAssist/).
 
-It's important to make sure no output from the code cells in the notebook is saved to Github or any other public location. To make sure Colab doesn't save this output, go to Edit > Notebook Settings and make sure the checkbox is ticked for "Omit code cell output when saving this notebook".
+It's important to make sure no output from the code cells in the notebook is saved to Github or any other public location. To make sure Colab doesn't save this output:
+
+1. Go to Edit > Notebook Settings
+2. Make sure the checkbox is ticked for "Omit code cell output when saving this notebook"
