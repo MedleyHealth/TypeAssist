@@ -15,3 +15,5 @@ Predictive text based on conditional fields
 Google Colab offers free GPU use with notebooks. It integrates nicely with Google Drive too. 
 
 See all the notebooks for the Medley Health organization [here](https://colab.research.google.com/github/MedleyHealth/TypeAssist/).
+
+It's important to make sure no output from the code cells in the notebook is saved to Github or any other public location. To make sure Colab doesn't save this output, go to Edit > Notebook Settings and make sure the checkbox is ticked for "Omit code cell output when saving this notebook".
