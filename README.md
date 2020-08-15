@@ -1,7 +1,7 @@
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/MedleyHealth/TypeAssist)
 
-# TypeAssist
-Predictive text based on conditional fields
+# Type Assist
+Type Assist is an application that offers text suggestions as users type. The user hits the tab key to accept the suggestion. The two major objectives of this library are to train models and to serve models via any number of mediums. It can be optionally extended to use federated learning during the model training process. Doing so maintains the privacy of users while creating a better collective model.
 
 ![Demo](https://medralabs.com/wp-content/uploads/2020/07/Demo-v2.gif)
 
