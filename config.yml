@@ -1,0 +1,9 @@
+# Flask debug level: Set to False for production
+flask_debug: True
+
+# Choose from DEBUG, INFO, WARNING, ERROR, CRITICAL
+log_level: DEBUG
+stdout_level: INFO
+
+# Suppresses print statements if False
+allow_print: True
