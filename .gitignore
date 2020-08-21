@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template
+=======
+>>>>>>> be8bdafd528c73da75a0c01ba75024cf5b67463f
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -49,6 +52,10 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
+<<<<<<< HEAD
+=======
+*.py,cover
+>>>>>>> be8bdafd528c73da75a0c01ba75024cf5b67463f
 .hypothesis/
 .pytest_cache/
 
@@ -60,6 +67,10 @@ coverage.xml
 *.log
 local_settings.py
 db.sqlite3
+<<<<<<< HEAD
+=======
+db.sqlite3-journal
+>>>>>>> be8bdafd528c73da75a0c01ba75024cf5b67463f
 
 # Flask stuff:
 instance/
@@ -91,8 +102,12 @@ ipython_config.py
 #   install all needed dependencies.
 #Pipfile.lock
 
-# celery beat schedule file
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# Celery stuff
 celerybeat-schedule
+celerybeat.pid
 
 # SageMath parsed files
 *.sage.py
@@ -132,4 +147,3 @@ dmypy.json
 
 # Paperspace
 .ps_project
-
