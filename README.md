@@ -4,7 +4,7 @@ Predictive text based on conditional fields
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/MedleyHealth/TypeAssist)
 
 # Type Assist
-Type Assist is an embeddable element for text completion. That is it offers text suggestions as users type. The user hits the tab key to accept the suggestion. It requires use of a GPU for acceptable inference times. The two major objectives of this library are to fine tune pre-trained language models and to serve predictions from those models via a medium such as a broswer. 
+Type Assist is an industry-agnostic, embeddable element for text completion. That is it offers text suggestions as users type. The user hits the tab key to accept the suggestion. It requires use of a GPU for acceptable inference times. The two major objectives of this library are to fine tune pre-trained language models and to serve predictions from those models via a medium such as a broswer. 
 
 We plan to extend the library to use federated learning during the model training process. Doing so will maintain the privacy of users while creating a better collective model.
 
