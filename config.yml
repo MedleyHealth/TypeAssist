@@ -1,9 +1,43 @@
-# Flask debug level: Set to False for production
-flask_debug: True
+### Preprocessing ###
 
-# Choose from DEBUG, INFO, WARNING, ERROR, CRITICAL
-log_level: DEBUG
-stdout_level: INFO
+filter_length: True           # Drop samples greater than the max length
+max_length: 100               # Maximum length for text
 
-# Suppresses print statements if False
-allow_print: True
+filter_regex: False           # Drop samples that match a regex
+regex:                        # The regex pattern
+
+split_newlines: True          # Split samples by the newline character
+min_length: 10                # Minimum length for text after splitting
+
+convert_lowercase: True       # Convert samples into lowercase characters
+
+
+### Flask App ###
+
+flask_debug: True       # Flask debug level: Set to False for production
+
+
+### Model ###
+
+embedding_dim: 300            # Dimensionality for word embeddings
+units: 128                    # Number of units in model
+use_bidirectional: False      # Use a bidirectional language model
+
+loss: 'sparse_categorical_crossentropy'   # The loss function for model training
+metrics:                                  # The metrics for model training
+  - 'sparse_categorical_accuracy'
+
+n_samples: -1           # Number of samples during training (-1 for all)
+tr_batch_size: 16       # Training batch size
+epochs: 10              # Number of training epochs
+val_split: 0.2          # Proportion of validation data
+
+
+### System ###
+
+# Choose the following from DEBUG, INFO, WARNING, ERROR, CRITICAL
+
+log_level: DEBUG        # Logfile log level.
+stdout_level: INFO      # Terminal log level
+
+allow_print: True       # Suppresses print statements if False
