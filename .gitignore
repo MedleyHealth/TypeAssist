@@ -147,3 +147,6 @@ dmypy.json
 
 # Paperspace
 .ps_project
+
+# Data directory
+data/
