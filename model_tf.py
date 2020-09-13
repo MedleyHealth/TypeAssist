@@ -1,7 +1,11 @@
 from config import config
 
+from abc import ABC
+
 import tensorflow as tf
 
+import logging
+import re
 import os
 
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -14,7 +18,74 @@ from tensorflow.keras.models import model_from_json
 from tensorflow.keras.models import load_model
 
 
-class EncoderDecoderTF:
+class ModelTF(ABC):
+
+    def __init__(self):
+        pass
+
+    def fit_model(self, data, n_samples=-1, tr_batch_size=config['tr_batch_size'],
+                  epochs=config['epochs'], val_split=config['val_split']):
+        """
+
+        :return:
+        """
+
+        input_data = data.input_data[:n_samples]
+        output_data = data.output_data[:n_samples]
+        target_data = data.target_data[:n_samples]
+
+        history = self.model.fit([input_data, output_data], target_data,
+                                 batch_size=tr_batch_size,
+                                 epochs=epochs,
+                                 validation_split=val_split)
+
+        self.histories.append(history)
+
+        return history
+
+    def save_model(self, models_dir=config['models_dir']):
+        """
+
+        :return:
+        """
+
+        model_path = f'{models_dir}/model_{self.model_num}'
+        json_path = f'{model_path}.json'
+        weights_path = f'{model_path}.h5'
+
+        logging.info(f'Saving JSON model to {json_path}...')
+        logging.info(f'Saving HDF5 weights to {weights_path}...')
+
+        if os.path.exists(json_path) or os.path.exists(weights_path):
+            raise BaseException('WARNING. Save path exists. Aborting.')
+
+        with open(json_path, 'w') as f:
+            model_json = self.model.to_json()
+            f.write(model_json)
+
+        self.model.save_weights(weights_path)
+
+    def load_model(self):
+        """
+
+        :return:
+        """
+
+        pass
+
+    @property
+    def model_num(self):
+        """ Calculates the current model number by adding 1 to the last number"""
+        models_dir = config['models_dir']
+        files = os.listdir(models_dir)
+        matches = re.search('\d*s.json', files)
+        matches = order(matches)
+
+        return matches[-1] + 1
+
+
+
+class EncoderDecoderTF(ModelTF):
     """
 
     :param data: A LanguageIndex object
@@ -42,6 +113,7 @@ class EncoderDecoderTF:
             self.decoder = self._build_decoder()
             self.model = self._build_model()
 
+    def __call__(self, *args, **kwargs):
 
     def _build_encoder(self):
         """
@@ -101,7 +173,9 @@ class EncoderDecoderTF:
 
         self.decoder_out = decoder_d2(Dropout(rate=.2)(decoder_d1(Dropout(rate=.2)(decoder_lstm_out))))
 
-        decoder_model =
+        decoder_model = ...
+
+        return decoder_model
 
     def _build_model(self):
         """
@@ -117,46 +191,3 @@ class EncoderDecoderTF:
         model.compile(optimizer=opt, loss=self.loss, metrics=self.metrics)
 
         return model
-
-    def fit_model(self, data, n_samples=-1, tr_batch_size=config['tr_batch_size'],
-                  epochs=config['epochs'], val_split=config['val_split']):
-        """
-
-        :return:
-        """
-
-        input_data = data.input_data[:n_samples]
-        output_data = data.output_data[:n_samples]
-        target_data = data.target_data[:n_samples]
-
-        history = self.model.fit([input_data, output_data], target_data,
-                            batch_size=tr_batch_size,
-                            epochs=epochs,
-                            validation_split=val_split)
-
-        self.histories.append(history)
-
-        return history
-
-    def save_model(self, model_dir=config['model_dir']):
-        """
-
-        :return:
-        """
-
-        save_path = '/content/drive/My Drive/3 Reference/TypeAssist/model_1'
-
-        if os.path.exists('{}.json'.format(save_path)):
-            raise BaseException('WARNING. Save path exists. Please increment the model number.')
-
-        model_json = self.model.to_json()
-
-        with open('{}.json'.format(save_path), 'w') as f:
-            f.write(model_json)
-
-        # serialize weights to HDF5
-        inf_model.save_weights('{}.h5'.format(save_path))
-
-
-
-
