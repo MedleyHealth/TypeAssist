@@ -1,3 +1,5 @@
+from type_assist.config import config
+
 import torch
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 
