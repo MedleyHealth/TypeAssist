@@ -3,3 +3,7 @@
   predictor:
     type: python
     path: predictor.py
+    model_path: s3://...
+  compute:
+    cpu: 1
+    gpu: 1
