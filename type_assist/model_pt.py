@@ -1,4 +1,4 @@
-from type_assist.type_assist.config import config
+from type_assist.config import config
 
 from abc import ABC, abstractmethod
 
@@ -7,7 +7,7 @@ import re
 import os
 
 
-class ModelPT(ABC):
+class MetaModelPT(ABC):
 
     def fit_model(self, data, n_samples=-1, tr_batch_size=config['tr_batch_size'],
                   epochs=config['epochs'], val_split=config['val_split']):
@@ -68,7 +68,7 @@ class ModelPT(ABC):
 
 
 
-class EncoderDecoderPT(ModelPT):
+class EncoderDecoderPT(MetaModelPT):
 
 
     def __init__(self):

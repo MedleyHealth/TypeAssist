@@ -1,18 +1,43 @@
-from type_assist.config import config
+from type_assist.config import Configure
+from type_assist.data_prep import Formatter, Preprocess
+
+
+
 
 import torch
-from transformers import GPT2Tokenizer, GPT2LMHeadModel
+import logging
 
 
 class PythonPredictor:
-    def __init__(self, config):
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        print(f"using device: {self.device}")
-        self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
-        self.model = GPT2LMHeadModel.from_pretrained("gpt2").to(self.device)
+
+    configure = Configure()
+    formatter = Formatter()
+    preprocess = Preprocess()
+
+    def __init__(self):
+        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        logging.info(f'Using device: {self.device}...')
+
+        self.model_path = None
+        self.model = self.load_model(self.model_path)
+        self.model = self.model.to(self.device)
 
     def predict(self, payload):
-        input_length = len(payload["text"].split())
-        tokens = self.tokenizer.encode(payload["text"], return_tensors="pt").to(self.device)
-        prediction = self.model.generate(tokens, max_length=input_length + 20, do_sample=True)
-        return self.tokenizer.decode(prediction[0])
+        """
+        Makes predictions
+
+        :param payload: A dictionary of request parameters
+        :return prediction: A string
+        :return confidence: A float from 0 to 1 with highest confidence at 1
+        """
+
+        text = payload['text']
+        data = self.formatter(text)
+        data = self.preprocessor(data)
+        prediction, confidence = self.model.inference(data)
+
+        return prediction, confidence
+
+    def load_model(self, model_path):
+        model = ...
+        return model

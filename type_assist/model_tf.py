@@ -1,6 +1,8 @@
-from type_assist.type_assist.config import config
+from type_assist.config import config
 
 from abc import ABC
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, Dense, CuDNNLSTM, Embedding, Dropout, Bidirectional, Concatenate
 
 import tensorflow as tf
 
@@ -8,11 +10,8 @@ import logging
 import re
 import os
 
-from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, Dense, CuDNNLSTM, Embedding, Dropout, Bidirectional, Concatenate
 
-
-class ModelTF(ABC):
+class MetaModelTF(ABC):
 
     def __init__(self):
         pass
@@ -79,7 +78,7 @@ class ModelTF(ABC):
 
 
 
-class EncoderDecoderTF(ModelTF):
+class EncoderDecoderTF(MetaModelTF):
     """
 
     :param data: A LanguageIndex object
@@ -177,11 +176,13 @@ class EncoderDecoderTF(ModelTF):
         :return:
         """
 
-        model = Model(inputs=[self.encoder_inputs, self.decoder_inputs],
-                      outputs=self.decoder_out)
+        self._build_optimizer()
 
-        opt = tf.train.AdamOptimizer()
-
-        model.compile(optimizer=opt, loss=self.loss, metrics=self.metrics)
+        model_inputs = [self.encoder_inputs, self.decoder_inputs]
+        model = Model(inputs=model_inputs, outputs=self.decoder_out)
+        model.compile(optimizer=self.opt, loss=self.loss, metrics=self.metrics)
 
         return model
+
+    def _build_optimizer(self):
+        self.opt = tf.train.AdamOptimizer()

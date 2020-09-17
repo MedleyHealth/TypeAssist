@@ -1,4 +1,4 @@
-from type_assist.type_assist.config import config
+from type_assist.config import config
 
 from flask import Flask, jsonify, make_response, render_template, send_from_directory
 from flasgger import Swagger

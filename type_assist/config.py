@@ -5,8 +5,28 @@ import io
 import os
 
 
-with open('config.yml', 'r') as f:
-    config = yaml.safe_load(f)
+class Configure:
+
+    def __init__(self, config_path=None):
+        if config_path is None:
+            self.config_path = '../config.yml'
+
+
+    @staticmethod
+    def load_config(config_path):
+        """
+        Loads the app configuration
+
+        :param config_path: The path to the configuration YML file
+        :return config: A nested dictionary of configuration parameters
+        """
+
+        with open(config_path, 'r') as f:
+            config = yaml.safe_load(f)
+        return config
+
+
+config = Configure.load_config('config.yml')
 
 if not os.path.exists('logs/'):
     os.makedirs('logs/')
