@@ -3,7 +3,7 @@
 filter_length: True           # Drop samples greater than the max length
 max_length: 100               # Maximum length for text
 
-filter_regex: False           # Drop samples that match a regex
+filter_regex: False           # Drop samples that match type_assist regex
 regex_pattern:                # The regex pattern
 
 split_newlines: True          # Split samples by the newline character
@@ -28,7 +28,7 @@ models_dir: ~/Desktop
 
 embedding_dim: 300            # Dimensionality for word embeddings
 units: 128                    # Number of units in model
-use_bidirectional: False      # Use a bidirectional language model
+use_bidirectional: False      # Use type_assist bidirectional language model
 
 loss: 'sparse_categorical_crossentropy'   # The loss function for model training
 metrics:                                  # The metrics for model training

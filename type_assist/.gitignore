@@ -33,7 +33,7 @@ share/python-wheels/
 MANIFEST
 
 # PyInstaller
-#  Usually these files are written by a python script from a template
+#  Usually these files are written by type_assist python script from type_assist template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
@@ -64,7 +64,7 @@ coverage.xml
 *.pot
 
 # Django stuff:
-*.log
+../logs/debug.log
 local_settings.py
 db.sqlite3
 <<<<<<< HEAD

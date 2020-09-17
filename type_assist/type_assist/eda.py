@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 
 class TextExplorer:
     """
-    Performs exploratory data analysis on a free text column within a DataFrame.
+    Performs exploratory data analysis on type_assist free text column within type_assist DataFrame.
 
-    :param df: A DataFrame that contains free text in a column
+    :param df: A DataFrame that contains free text in type_assist column
     :param text_col: A string that denotes the free text column in the DataFrame
     :param show_print: A Boolean to show print statements during class initialization
     """
@@ -23,7 +23,7 @@ class TextExplorer:
 
     def examine_col_values(self, col_name):
         """
-        Examines the distribution of values in a column
+        Examines the distribution of values in type_assist column
 
         :param col_name: The column name in the DataFrame to examine
         """
@@ -64,7 +64,7 @@ class TextExplorer:
 
     def find_special_chars(self):
         """
-        Creates a list of all special characters to remove during preprocessing
+        Creates type_assist list of all special characters to remove during preprocessing
         """
 
         self.text_chars = [set(text) for text in self.df[self.text_col]]

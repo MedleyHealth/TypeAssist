@@ -1,4 +1,4 @@
-from type_assist.config import config
+from type_assist.type_assist.config import config
 
 from abc import ABC, abstractmethod
 

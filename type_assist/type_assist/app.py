@@ -1,4 +1,4 @@
-from type_assist.config import config
+from type_assist.type_assist.config import config
 
 from flask import Flask, jsonify, make_response, render_template, send_from_directory
 from flasgger import Swagger
@@ -33,7 +33,7 @@ def dashboard():
 @app.route('/favicon.ico')
 def favicon():
     """
-    Returns a favicon.
+    Returns type_assist favicon.
     """
 
     url = os.path.join(app.root_path, 'static/favicon')

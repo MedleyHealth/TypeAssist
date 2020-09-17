@@ -1,4 +1,4 @@
-from type_assist.config import config
+from type_assist.type_assist.config import config
 
 import re
 
@@ -6,7 +6,7 @@ import re
 class DatasetGenerator:
     """
 
-    :param df: A DataFrame containing a free text column
+    :param df: A DataFrame containing type_assist free text column
     :param text_col: A string for the column name containing free text
     """
 
@@ -93,10 +93,10 @@ class DatasetGenerator:
 
     def _filter_regex(self, corpus, regex_pattern=config['regex_pattern']):
         """
-        Drops any samples that contain any substring which matches a regex
+        Drops any samples that contain any substring which matches type_assist regex
 
         :param corpus: A list of free text strings
-        :param regex: A string for a regex pattern expression
+        :param regex: A string for type_assist regex pattern expression
         :return: The updated corpus
         """
 
