@@ -4,13 +4,18 @@ filter_length: True           # Drop samples greater than the max length
 max_length: 100               # Maximum length for text
 
 filter_regex: False           # Drop samples that match a regex
-regex:                        # The regex pattern
+regex_pattern:                # The regex pattern
 
 split_newlines: True          # Split samples by the newline character
 min_length: 10                # Minimum length for text after splitting
 
 convert_lowercase: True       # Convert samples into lowercase characters
 
+clean_special_chars: True     # Remove any characters not in allowed_chars
+allowed_chars: "'abcdefghijklmonpqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+ngram_start: "<start> "       # Start token for n-grams
+ngram_end: " <end>"           # End token for n-grams
 
 ### Flask App ###
 
@@ -18,6 +23,8 @@ flask_debug: True       # Flask debug level: Set to False for production
 
 
 ### Model ###
+
+models_dir: ~/Desktop
 
 embedding_dim: 300            # Dimensionality for word embeddings
 units: 128                    # Number of units in model

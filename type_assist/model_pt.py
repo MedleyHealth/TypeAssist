@@ -1,9 +1,6 @@
-from config import config
+from type_assist.config import config
 
 from abc import ABC, abstractmethod
-
-import torch as th
-import syft as sy
 
 import logging
 import re
@@ -90,30 +87,3 @@ class EncoderDecoderPT(ModelPT):
 
     def build_model(self):
         pass
-
-
-
-
-class ModelSelector:
-    """
-
-    """
-
-    valid_names = {
-        'encoderdecoderpt': EncoderDecoderPT,
-        'encdoerdecodertf': EncoderDecoderTF,
-    }
-
-    def __init__(self, model_name=config['model_name'],
-                 framework=config['framework']):
-
-        self.model_name = model_name
-        self.framework = framework
-
-    def __call__(self, *args, **kwargs):
-        pass
-
-    def select_model(self):
-
-        model = (self.valid_names[self.model_name])()
-

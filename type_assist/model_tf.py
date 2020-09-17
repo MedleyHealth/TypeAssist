@@ -1,4 +1,4 @@
-from config import config
+from type_assist.config import config
 
 from abc import ABC
 
@@ -8,14 +8,8 @@ import logging
 import re
 import os
 
-from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, LSTM, Dense, CuDNNLSTM, Embedding, Flatten, TimeDistributed, Dropout, LSTMCell, RNN, Bidirectional, Concatenate, Layer
-from tensorflow.keras.callbacks import ModelCheckpoint
-from tensorflow.python.keras.utils import tf_utils
-from tensorflow.keras import backend as K
-from tensorflow.keras.models import model_from_json
-from tensorflow.keras.models import load_model
+from tensorflow.keras.layers import Input, Dense, CuDNNLSTM, Embedding, Dropout, Bidirectional, Concatenate
 
 
 class ModelTF(ABC):

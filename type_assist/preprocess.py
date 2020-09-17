@@ -1,9 +1,9 @@
-from config import config
+from type_assist.config import config
 
 import re
 
 
-class DataGenerator:
+class DatasetGenerator:
     """
 
     :param df: A DataFrame containing a free text column
@@ -15,25 +15,68 @@ class DataGenerator:
         self.df = df
         self.text_col = text_col
 
-        self.corpus = [text for text in df[text_col]]
+        self._generate()
 
-        if config['filter_length']:
-            self.length_limit = config['length_limit']
+    def __len__(self):
+        """
+
+        :return:
+        """
+
+        return len(self.df)
+
+    def __truediv__(self, num_pieces):
+        """
+        Splits the DatasetGenerator into (roughly) equally-sized pieces
+
+        :param number_shares:
+        :return: An unpacked list of equally-sized dataset chunks
+        """
+
+        num_samples = len(self.df)
+
+        datasets = []
+
+        for n in range(num_pieces):
+            start_idx = int(n / num_pieces * num_samples) #TODO check logic of int
+            end_idx = int((n + 1) / num_pieces * num_samples)
+
+            df = self.df[start_idx: end_idx]
+            ds = DatasetGenerator(df, self.text_col)
+
+            datasets.append(ds)
+
+        return datasets
+
+    def _generate(self, filter_length=config['filter_length'],
+                  max_length=config['max_length'],
+                  filter_regex=config['filter_regex'],
+                  regex_pattern=config['regex_pattern'],
+                  split_newlines=config['split_newlines'],
+                  convert_lowercase=config['convert_lowercase']):
+
+        self.filter_length = filter_length
+        self.filter_regex = filter_regex
+        self.split_newlines = split_newlines
+        self.convert_lowercase = convert_lowercase
+
+        self.corpus = [text for text in self.df[self.text_col]]
+
+        if filter_length:
+            self.max_length = max_length
             self.corpus = self._filter_length(self.corpus)
 
-        if config['filter_regex']:
-            self.regex = config['regex']
+        if filter_regex and regex_pattern:
+            self.regex_pattern = regex_pattern
             self.corpus = self._filter_regex(self.corpus)
 
-        if config['split_newlines']:
-            self.split_new_lines = config['split_newlines']
-            self.corpus = self._split_new_lines(self.corpus)
+        if split_newlines:
+            self.corpus = self._split_newlines(self.corpus)
 
-        if config['convert_lowercase']:
-            self.convent_lowercase = config['convert_lowercase']
+        if convert_lowercase:
             self.corpus = self._convent_lowercase(self.corpus)
 
-        self.data = self.generate_ngrams(self.corpus)
+        self.data = self._generate_ngrams(self.corpus)
 
     def _filter_length(self, corpus, max_length=config['max_length']):
         """
@@ -48,19 +91,18 @@ class DataGenerator:
 
         return corpus
 
-    def _filter_regex(self, corpus, regex=config['regex']):
+    def _filter_regex(self, corpus, regex_pattern=config['regex_pattern']):
         """
         Drops any samples that contain any substring which matches a regex
 
         :param corpus: A list of free text strings
-        :param regex: A string for a regex expression
+        :param regex: A string for a regex pattern expression
         :return: The updated corpus
         """
 
-        corpus = [text for text in corpus if re.search(regex, text) is None]
+        corpus = [text for text in corpus if re.search(regex_pattern, text) is None]
 
         return corpus
-
 
     def _split_newlines(self, corpus, min_length=config['min_length']):
         """
@@ -90,7 +132,7 @@ class DataGenerator:
 
         return corpus
 
-    def _clean_special_chars(self, corpus, special_chars=config['special_chars']):
+    def _clean_special_chars(self, corpus, allowed_chars=config['allowed_chars']):
         """
         Removes all special characters from the corpus
     
@@ -99,14 +141,22 @@ class DataGenerator:
         :return: The updated corpus
         """
 
-        corpus = [text.replace(sc, '') for text in corpus for sc in special_chars]
+        text_chars = [set(text) for text in corpus]
+        unique_chars = set([char_set for text in text_chars for char_set in text])
+
+        self.special_chars = [char for char in unique_chars if char not in allowed_chars]
+
+        corpus = [text.replace(sc, '') for text in corpus for sc in self.special_chars]
 
         return corpus
 
-    def _generate_ngrams(self, corpus, start=config['start'], end=config['end']):
+    def _generate_ngrams(self, corpus, start=config['ngram_start'],
+                         end=config['ngram_end']):
         """
 
         :param corpus:
+        :param start:
+        :param end:
         :return:
         """
 
@@ -114,8 +164,8 @@ class DataGenerator:
 
         for text in corpus:
             for i in range(1, len(text)):
-                x_ngram = start + text[:i + 1] + end
-                y_ngram = start + text[i + 1:] + end
+                x_ngram = start + text[:i+1] + end
+                y_ngram = start + text[i+1:] + end
                 data.append([x_ngram, y_ngram])
 
         return data
@@ -158,3 +208,4 @@ class LanguageIndex:
 
 
 def generate_train():
+    pass
