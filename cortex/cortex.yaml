@@ -1,4 +1,4 @@
-- name: text-generator
+- name: type_assistç
   kind: RealtimeAPI
   predictor:
     type: python
