@@ -1,4 +1,4 @@
-- name: type_assistç
+- name: type_assist
   kind: RealtimeAPI
   predictor:
     type: python
