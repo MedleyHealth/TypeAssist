@@ -6,11 +6,16 @@ import os
 
 
 class Configure:
+    """
+    Configures the behavior of the Type Assist application
+
+    :param config_path: A string path to the configuration YML file
+    """
 
     def __init__(self, config_path=None):
         if config_path is None:
             self.config_path = '../config.yml'
-
+        self.config = self.load_config(config_path)
 
     @staticmethod
     def load_config(config_path):
@@ -26,7 +31,7 @@ class Configure:
         return config
 
 
-config = Configure.load_config('config.yml')
+config = Configure.load_config()
 
 if not os.path.exists('logs/'):
     os.makedirs('logs/')
